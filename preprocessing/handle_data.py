@@ -12,10 +12,14 @@ class HandleData:
         data = data[data['nfeatures'] != 0]
         for col in data:
             if col == 'features':
-                data[col] = data[col].str.replace(r'[{}]', '', regex=True)
-                data[col] = data[col].str.split('},').apply(lambda x: [list(map(float, item.split(','))) for item in x])
+                data.loc[:, col] = data[col].str.replace(r'[{}]', '', regex=True)
+                data.loc[:, col] = data[col].str.split('},').apply(
+                    lambda x: [list(map(float, item.split(','))) for item in x]
+                )
             elif col == 'targets':
-                data[col] = data[col].str.replace(r'[{}]', '', regex=True)
-                data[col] = data[col].str.split(',').apply(lambda x: [float(i) for i in x])
+                data.loc[:, col] = data[col].str.replace(r'[{}]', '', regex=True)
+                data.loc[:, col] = data[col].str.split(',').apply(
+                    lambda x: [float(i) for i in x]
+                )
 
         return data
