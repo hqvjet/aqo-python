@@ -15,11 +15,10 @@ mkdir()
 data = pd.read_csv('resources/dataset.csv')
 
 # Preprocessing
-data = data[data['nfeatures'] != 0]
-handle_data = HandleData(data)
+handle_data = HandleData(data).data
 
 # Modelling
-data = data.values.tolist()
+data = handle_data.values.tolist()
 
 for row in data:
     fs_hash = row[0]

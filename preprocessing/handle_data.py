@@ -9,6 +9,7 @@ class HandleData:
         '''
             Function to normalize data
         '''
+        data = data[data['nfeatures'] != 0]
         for col in data:
             if col == 'features':
                 data[col] = data[col].str.replace(r'[{}]', '', regex=True)
