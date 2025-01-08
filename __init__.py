@@ -11,15 +11,18 @@ def mkdir():
 # Check folder
 mkdir()
 
+model_names = [f for f in os.listdir('resources/models') if f.endswith('.py')]
+model_names.remove('trainer.py')
+print(model_names)
+
 # Get data
 data = pd.read_csv('resources/dataset.csv')
 
 # Preprocessing
 handle_data = HandleData(data).data
-
-# Modelling
 data = handle_data.values.tolist()
 
+# Modelling
 for row in data:
     fs_hash = row[0]
     fss_hash = row[1]
