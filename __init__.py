@@ -26,21 +26,20 @@ model_lib = ModelLibrabry(model_list)
 
 # Preprocessing
 handle_data = HandleData(data).data
-data = handle_data.values.tolist()
+
+print('Which model do you wanna use ? <type model name correctly>')
+for i, name in enumerate(model_names):
+    print(f'{i+1}. {name}')
+
+key = input()
 
 # Modelling
-for row in data:
+for row in handle_data:
     fs_hash = row[0]
     fss_hash = row[1]
     nfeatures = row[2]
     features = torch.tensor(row[3])
     targets = torch.tensor(row[4])
-
-    print('Which model do you wanna use ? <type model name correctly>')
-    for i, name in enumerate(model_names):
-        print(f'{i+1}. {name}')
-
-    key = input()
 
     model = model_lib.select_model(model_name=key, nfeatures=nfeatures)
 

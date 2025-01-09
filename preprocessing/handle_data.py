@@ -10,16 +10,17 @@ class HandleData:
             Function to normalize data
         '''
         data = data[data['nfeatures'] != 0]
-        for col in data:
-            if col == 'features':
-                data.loc[:, col] = data[col].str.replace(r'[{}]', '', regex=True)
-                data.loc[:, col] = data[col].str.split('},').apply(
-                    lambda x: [list(map(float, item.split(','))) for item in x]
-                )
-            elif col == 'targets':
-                data.loc[:, col] = data[col].str.replace(r'[{}]', '', regex=True)
-                data.loc[:, col] = data[col].str.split(',').apply(
-                    lambda x: [float(i) for i in x]
-                )
+        data = data.values.tolist()
+
+        for row_index in range(len(data)):
+            features = data[row_index][3][2:-2].split('},{')
+            new_features = []
+            for point in features:
+                new_features.append([float(i) for i in point.split(',')])
+
+            data[row_index][3] = new_features
+
+            targets = data[row_index][4][1:-1].split(',')
+            data[row_index][4] = [float(i) for i in targets]
 
         return data

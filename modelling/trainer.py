@@ -15,6 +15,9 @@ class Trainer():
     def fit(self, features, targets):
         self.model.train()
         max_loss = 1000000000
+
+        print(f'This space has {features.size()[0]} datapoints')
+
         for epoch in range(self.epochs):
             self.opt.zero_grad()
             output = self.model(features)
@@ -26,7 +29,8 @@ class Trainer():
                 max_loss = loss
                 torch.save(list(self.model.parameters()), f'resources/models/{self.model.name}/{self.fsh}_{self.fssh}.pt')
 
-            print(f'Epoch {epoch+1}/{self.epochs}, Loss: {loss.item()}')
+            if (epoch+1) % 250 == 0:
+                print(f'Epoch {epoch+1}/{self.epochs}, Loss: {loss.item()}')
 
 
 
