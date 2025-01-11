@@ -28,6 +28,7 @@ data = pd.read_csv('resources/dataset.csv')
 
 # Get model list
 model_list = ['gru', 'xgboost'] # if there are any new model, add here
+DL_model = ['gru']
 model_lib = ModelLibrabry(model_list)
 
 # Preprocessing
@@ -46,8 +47,11 @@ for row in handle_data:
     nfeatures = row[2]
     features = torch.tensor(row[3])
     targets = torch.tensor(row[4])
+    isML = True
 
+    if key in DL_model:
+        isML=False
     model = model_lib.select_model(model_name=key, nfeatures=nfeatures)
 
-    trainer = Trainer(model=model, fs_hash=fs_hash, fss_hash=fss_hash)
+    trainer = Trainer(model=model, fs_hash=fs_hash, fss_hash=fss_hash, isML=isML)
     trainer.fit(features, targets)
