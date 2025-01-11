@@ -1,4 +1,5 @@
 from modelling.gru import GRU
+from modelling.xgboost import XGB
 
 class ModelLibrabry:
     def __init__(self, model_list:str=None):
@@ -11,6 +12,8 @@ class ModelLibrabry:
         '''
         if model_name == self.model_list[0]:
             return GRU(input_size=nfeatures, hidden_size=16)
+        elif model_name == self.model_list[1]:
+            return XGB()
         # elif .....
         #   return .....
 

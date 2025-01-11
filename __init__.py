@@ -5,11 +5,14 @@ from preprocessing import HandleData
 from modelling import Trainer, ModelLibrabry
 
 def mkdir():
-    if not os.path.exists('resources/models/GRU'):
-        os.makedirs('resources/models/GRU')
+    if not os.path.exists('resources/models'):
+        os.makedirs('resources/models')
 
     if not os.path.exists('resources/models/GRU'):
         os.makedirs('resources/models/GRU')
+
+    if not os.path.exists('resources/models/XGB'):
+        os.makedirs('resources/models/XGB')
 
 # Check folder
 mkdir()
@@ -24,7 +27,7 @@ model_names.remove('model_library')
 data = pd.read_csv('resources/dataset.csv')
 
 # Get model list
-model_list = ['gru'] # if there are any new model, add here
+model_list = ['gru', 'xgboost'] # if there are any new model, add here
 model_lib = ModelLibrabry(model_list)
 
 # Preprocessing

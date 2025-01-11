@@ -9,7 +9,7 @@ class GRU(nn.Module):
         self.gru = nn.GRU(input_size, hidden_size, num_layers=1, batch_first=True)
         self.fc = nn.Linear(hidden_size, output_size)
     
-    def forward(self, x):
+    def forward(self, x, y=None):
         x = x.unsqueeze(1)
 
         out, _ = self.gru(x)
