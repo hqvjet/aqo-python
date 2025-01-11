@@ -16,21 +16,41 @@ class Trainer():
         self.model.train()
         max_loss = 1000000000
 
-        print(f'This space has {features.size()[0]} datapoints')
+        data = torch.cat((features, targets.unsqueeze(1)), axis=1)
+        unique_data = torch.unique(data, dim=0)
+
+        unique_features = unique_data[:, :-1]
+        unique_targets = unique_data[:, -1]
 
         for epoch in range(self.epochs):
             self.opt.zero_grad()
-            output = self.model(features)
-            loss = self.loss(output, targets)
+            output = self.model(unique_features)
+            loss = self.loss(output, unique_targets)
             loss.backward()
             self.opt.step()
-            
+
             if loss < max_loss:
                 max_loss = loss
                 torch.save(list(self.model.parameters()), f'resources/models/{self.model.name}/{self.fsh}_{self.fssh}.pt')
 
-            if (epoch+1) % 250 == 0:
+            if (epoch+1) % 500 == 0:
                 print(f'Epoch {epoch+1}/{self.epochs}, Loss: {loss.item()}')
+
+        print(f'This space has {data.size()[0]} datapoints, {unique_data.size()[0]} unique datapoints, fs: {self.fsh}, fss: {self.fssh}')
+        #
+        # for epoch in range(self.epochs):
+        #     self.opt.zero_grad()
+        #     output = self.model(features)
+        #     loss = self.loss(output, targets)
+        #     loss.backward()
+        #     self.opt.step()
+        #     
+        #     if loss < max_loss:
+        #         max_loss = loss
+        #         torch.save(list(self.model.parameters()), f'resources/models/{self.model.name}/{self.fsh}_{self.fssh}.pt')
+        #
+        #     if (epoch+1) % 500 == 0:
+        #         print(f'Epoch {epoch+1}/{self.epochs}, Loss: {loss.item()}')
 
 
 

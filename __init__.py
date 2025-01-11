@@ -8,6 +8,9 @@ def mkdir():
     if not os.path.exists('resources/models/GRU'):
         os.makedirs('resources/models/GRU')
 
+    if not os.path.exists('resources/models/GRU'):
+        os.makedirs('resources/models/GRU')
+
 # Check folder
 mkdir()
 
