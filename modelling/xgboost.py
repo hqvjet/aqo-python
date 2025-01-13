@@ -10,8 +10,8 @@ class XGB(nn.Module):
         self.params = {
                 "objective": "reg:squarederror",
                 "max_depth": 8,
-                "eta": 0.01,
-                "subsample": 0.9,
+                "eta": 0.1,
+                "subsample": 1,
                 "colsample_bytree": 1,
                 "tree_method": "hist",
                 "device": "cuda",

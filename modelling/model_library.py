@@ -2,7 +2,7 @@ from modelling.gru import GRU
 from modelling.xgboost import XGB
 import torch
 
-class ModelLibrabry:
+class ModelLibrary:
     def __init__(self, model_list:str=None):
         self.model_list = model_list
 
