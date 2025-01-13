@@ -4,7 +4,7 @@ import torch.nn as nn
 class Trainer():
     def __init__(self, epoch=1000, lr=0.001, batch_size=32, fs_hash=None, fss_hash=None, model=None, isML=True):
         self.model = model
-        self.loss = nn.MSELoss()
+        self.loss = nn.L1Loss()
         self.isML = isML
         if not isML:
             self.opt = torch.optim.Adam(self.model.parameters(), lr=0.001)
@@ -35,16 +35,17 @@ class Trainer():
 
                 if loss < max_loss:
                     max_loss = loss
-                    torch.save(list(self.model.parameters()), f'resources/models/{self.model.name}/{self.fsh}_{self.fssh}.pt')
+                    torch.save(self.model.state_dict(), f'resources/models/{self.model.name}/{self.fsh}_{self.fssh}.pt')
 
                 if (epoch+1) % 500 == 0:
-                    print(f'Epoch {epoch+1}/{self.epochs}, Loss: {loss.item()}')
+                    print(f'Epoch {epoch+1}/{self.epochs}, Global MAE Loss: {loss.item()}')
 
         else:
-            model, output = self.model(unique_features, unique_targets)
+            output = self.model(unique_features, unique_targets)
+            model = self.model.model
             print(output)
             model.save_model(f'resources/models/{self.model.name}/{self.fsh}_{self.fssh}.json')
             output = torch.tensor(output)
             loss = self.loss(output, unique_targets)
-            print(f'Global MSE Loss: {loss.item()}')
+            print(f'Global MAE Loss: {loss.item()}')
 

@@ -6,6 +6,7 @@ class XGB(nn.Module):
     def __init__(self, output_size=1):
         super(XGB, self).__init__()
         self.name = 'XGB'
+        self.model = None
         self.params = {
                 "objective": "reg:squarederror",
                 "max_depth": 8,
@@ -17,8 +18,15 @@ class XGB(nn.Module):
         }
         self.num_rounds = 100
     
-    def forward(self, x, y=None):
+    def forward(self, x, y=None, train=True):
         dtrain = xgb.DMatrix(x, label=y)
-        model = xgb.train(self.params, dtrain, num_boost_round=self.num_rounds)
-        predict = model.predict(xgb.DMatrix(x))
-        return model, predict
+
+        if train:
+            self.model = xgb.train(self.params, dtrain, num_boost_round=self.num_rounds)
+
+        predict = self.model.predict(xgb.DMatrix(x))
+        return predict
+
+    def load_model(self, path):
+        self.model = xgb.Booster()
+        self.model.load_model(path)
