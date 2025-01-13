@@ -43,7 +43,6 @@ class Trainer():
         else:
             output = self.model(unique_features, unique_targets)
             model = self.model.model
-            print(output)
             model.save_model(f'resources/models/{self.model.name}/{self.fsh}_{self.fssh}.json')
             output = torch.tensor(output)
             loss = self.loss(output, unique_targets)
