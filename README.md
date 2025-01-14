@@ -1,5 +1,4 @@
-# Cardinality Estimation Optimization - VKU POSTGRESQL
-
+# Cardinality Estimation Optimization - VKU
 ## Setup tutorial
 - ```python3 -m venv venv```
 - ```source venv/bin/activate```
