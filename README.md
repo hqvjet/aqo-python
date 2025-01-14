@@ -1,4 +1,4 @@
-# AQO XGBOOST - VKU POSTGRESQL
+# Cardinality Estimation Optimization - VKU POSTGRESQL
 
 ## Setup tutorial
 - ```python3 -m venv venv```
