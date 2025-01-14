@@ -1,4 +1,4 @@
-# AQO on Python enviroment
+# AQO XGBOOST - VKU POSTGRESQL
 
 ## Setup tutorial
 - ```python3 -m venv venv```
