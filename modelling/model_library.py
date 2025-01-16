@@ -1,5 +1,6 @@
 from modelling.gru import GRU
 from modelling.xgboost import XGB
+from modelling.lstm import LSTM
 import torch
 
 class ModelLibrary:
@@ -16,6 +17,9 @@ class ModelLibrary:
 
         elif model_name == self.model_list[1]:
             return XGB()
+
+        elif model_name == self.model_list[2]:
+            return LSTM(input_size=nfeatures, hidden_size=16)
 
         # elif .....
         #   return .....
@@ -38,6 +42,10 @@ class ModelLibrary:
             model = XGB()
             model.load_model(f'resources/models/XGB/{fs}_{fss}.json')
             return model
+
+        if model_name == self.model_list[2]:
+            model = LSTM(input_size=nfeatures, hidden_size=16)
+            return model.load_state_dict(torch.load(f'resources/models/LSTM/{fs}_{fss}.pt'))
 
         # elif .....
         #   return .....
