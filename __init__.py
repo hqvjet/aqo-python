@@ -16,6 +16,9 @@ def mkdir():
     if not os.path.exists('resources/models/XGB'):
         os.makedirs('resources/models/XGB')
 
+    if not os.path.exists('resources/models/LSTM'):
+        os.makedirs('resources/models/LSTM')
+
 # Check folder
 mkdir()
 
@@ -30,8 +33,8 @@ model_names.remove('model_library')
 data = pd.read_csv('resources/dataset.csv')
 
 # Get model list
-model_list = ['gru', 'xgboost'] # if there are any new model, add here
-DL_model = ['gru']
+model_list = ['gru', 'xgboost', 'lstm'] # if there are any new model, add here
+DL_model = ['gru', 'lstm']
 model_lib = ModelLibrary(model_list)
 
 # Preprocessing
